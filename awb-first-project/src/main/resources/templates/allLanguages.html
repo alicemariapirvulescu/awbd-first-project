@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>String List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>String List</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>String Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="str : ${languages}">
+            <td th:text="${str}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

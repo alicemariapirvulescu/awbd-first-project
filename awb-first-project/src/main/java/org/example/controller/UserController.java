@@ -5,6 +5,7 @@ import org.example.controller.payload.request.RegisterDto;
 import org.example.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<?> loginUser(Model model, @RequestBody LoginDto loginDto) {
         String jwt = userService.processLogin(loginDto);
         return ResponseEntity.ok().body(jwt);
     }
