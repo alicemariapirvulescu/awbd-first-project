@@ -20,8 +20,9 @@ public class LessonService {
   private final LessonRepository lessonRepository;
   private final LanguageRepository languageRepository;
 
-  public GetLessonsResponse getLessons(final String languageName) throws DuolingoRuntimeException {
-      val currentUser = userService.getCurrentUser().orElseThrow(
+  public GetLessonsResponse getLessons(final String languageName,String jwt) throws DuolingoRuntimeException {
+
+    val currentUser = userService.getCurrentUser(jwt).orElseThrow(
           () -> new DuolingoRuntimeException(403,"User not found")
       );;
       val userLanguages = currentUser.getLanguages();

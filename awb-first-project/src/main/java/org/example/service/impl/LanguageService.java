@@ -21,8 +21,9 @@ public class LanguageService {
   private final UserRepository userRepository;
 
 
-  public GetLanguagesResponse getUserLanguages() throws DuolingoRuntimeException {
-    val currentUser = userService.getCurrentUser()
+  public GetLanguagesResponse getUserLanguages(String jwt) throws DuolingoRuntimeException {
+
+    val currentUser = userService.getCurrentUser(jwt)
         .orElseThrow(() -> new DuolingoRuntimeException(403,"Please login to access this feature"));
     val userLanguages = currentUser.getLanguages()
         .stream()
@@ -38,8 +39,8 @@ public class LanguageService {
         .toList();
     return new GetLanguagesResponse(languages);
   }
-  public GetLanguagesResponse addLanguageToUser(final String languageName) throws DuolingoRuntimeException {
-    val currentUser = userService.getCurrentUser()
+  public GetLanguagesResponse addLanguageToUser(final String languageName, String jwt) throws DuolingoRuntimeException {
+    val currentUser = userService.getCurrentUser(jwt)
         .orElseThrow(() -> new DuolingoRuntimeException(403,"Please login to access this api"));
     val language = languageRepository
         .findByName(languageName)

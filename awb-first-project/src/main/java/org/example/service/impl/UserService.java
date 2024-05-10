@@ -1,5 +1,7 @@
 package org.example.service.impl;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.example.controller.payload.request.LoginDto;
 import org.example.controller.payload.request.RegisterDto;
 import org.example.domain.entities.User;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +33,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final JwtUtils jwtUtils;
-
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private RegisterDtoToUser registerMapper = Mappers.getMapper(RegisterDtoToUser.class);
 
@@ -51,14 +53,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<User> getCurrentUser() {
-        val principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
+    public Optional<User> getCurrentUser(String jwt) {
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
         return userRepository.findByUsername(username);
     }
 

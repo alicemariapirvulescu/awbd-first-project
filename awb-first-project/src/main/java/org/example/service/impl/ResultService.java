@@ -26,9 +26,10 @@ public class ResultService {
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 
-    public GetResultResponse saveResult(final SaveResultRequest request)
+    public GetResultResponse saveResult(final SaveResultRequest request,String jwt)
             throws DuolingoRuntimeException {
-        val currentUser = userService.getCurrentUser().orElseThrow(
+
+    val currentUser = userService.getCurrentUser(jwt).orElseThrow(
                 () -> new DuolingoRuntimeException(403, "User not found")
         );
         ;
@@ -44,11 +45,12 @@ public class ResultService {
         return new GetResultResponse(savedResult.getGrade(), savedResult.getLanguage().getName(),formatter.format(result.getTimestamp()));
     }
 
-    public GetResultsResponse findResultsForLanguage(final String languageName)
+    public GetResultsResponse findResultsForLanguage(final String languageName,String jwt)
             throws DuolingoRuntimeException {
         val language = languageRepository.findByName(languageName).orElseThrow(()
                 -> new DuolingoRuntimeException(400, "Language not found"));
-        val currentUser = userService.getCurrentUser().orElseThrow(
+
+    val currentUser = userService.getCurrentUser(jwt).orElseThrow(
                 () -> new DuolingoRuntimeException(403, "User not found")
         );
         val results = resultRepository.findAllByLanguageAndUserOrderByTimestamp(language, currentUser);

@@ -53,7 +53,7 @@ public class TestService {
         return new GetQuestionsResponse(mappedQuestions);
     }
 
-    public GetResultResponse saveResultForTest(final PostTestResultRequest request)
+    public GetResultResponse saveResultForTest(final PostTestResultRequest request,String jwt)
             throws DuolingoRuntimeException {
 
         val points = request.answers().stream()
@@ -63,7 +63,8 @@ public class TestService {
         val language = languageRepository.findByName(request.languageName()).orElseThrow(
                 () -> new DuolingoRuntimeException(400, "Language does not exist"));
         val grade = points.stream().mapToDouble(Integer::doubleValue).sum();
-        val currentUser = userService.getCurrentUser();
+
+    val currentUser = userService.getCurrentUser(jwt);
         val result = Result.builder()
                 .user(currentUser.get())
                 .timestamp(new Date())
