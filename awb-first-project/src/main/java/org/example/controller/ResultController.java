@@ -25,12 +25,12 @@ public class ResultController {
 
   private final ResultService resultService;
 
-  @GetMapping(path = "/{languageName}")
-  public ResponseEntity<GetResultsResponse> getResults(
-      @PathVariable final String languageName) throws DuolingoRuntimeException {
-
-    return ResponseEntity.ok(resultService.findResultsForLanguage(languageName));
-  }
+//  @GetMapping(path = "/{languageName}")
+//  public ResponseEntity<GetResultsResponse> getResults(
+//      @PathVariable final String languageName) throws DuolingoRuntimeException {
+//
+//    return ResponseEntity.ok(resultService.findResultsForLanguage(languageName));
+//  }
   @GetMapping(path = "/get-result-details/{resultId}")
   public ResponseEntity<GetResultResponse> getResultDetails(
       @PathVariable final Long resultId) throws DuolingoRuntimeException {

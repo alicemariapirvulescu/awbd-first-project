@@ -36,13 +36,14 @@ public class LessonControllerTest {
     @Test
     public void testGetLessons() throws Exception {
         String languageName = "Spanish";
+        String jwtMock = "adsafsa";
         GetLessonsResponse mockResponse = new GetLessonsResponse(Collections.emptyList()); // Assuming you have a default constructor
-        when(lessonService.getLessons(languageName)).thenReturn(mockResponse);
+        when(lessonService.getLessons(languageName, jwtMock)).thenReturn(mockResponse);
 
         mockMvc.perform(get("/duolingo/lesson/" + languageName))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
 
-        verify(lessonService).getLessons(languageName);
+        verify(lessonService).getLessons(languageName, null);
     }
 }
