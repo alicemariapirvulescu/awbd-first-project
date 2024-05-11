@@ -27,7 +27,7 @@ public class SecurityConfiguration {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(request -> request.requestMatchers("/","/login", "/documentation","/alice-api-docs","/alice-api-docs/*","/swagger-ui/*", "/duolingo/users/login", "/duolingo/users/register", "/duolingo/language/all", "/duolingo/language/enroll/*")
+        .authorizeHttpRequests(request -> request.requestMatchers("/","/login", "/documentation","/alice-api-docs","/alice-api-docs/*","/swagger-ui/*", "/duolingo/users/login", "/duolingo/users/register", "/duolingo/language/all", "/duolingo/language/enroll/*","/register-login")
             .permitAll().anyRequest().authenticated())
         .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
         .authenticationProvider(authenticationProvider()).addFilterBefore(
