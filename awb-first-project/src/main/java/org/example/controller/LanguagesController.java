@@ -24,32 +24,31 @@ import org.springframework.web.util.WebUtils;
 @RequiredArgsConstructor
 public class LanguagesController {
 
-  private final LanguageService languageService;
+    private final LanguageService languageService;
 
-  @GetMapping(path = "/all")
-  public String getLanguages(Model model) throws DuolingoRuntimeException {
-    model.addAttribute("languages", languageService.getLanguages().languages() );
-
-    return "allLanguages";
-  }
-
-  @GetMapping(path = "/enroll/{languageName}")
-  public String enroll(Model model) {
-    return "enroll";
-  }
-  @PostMapping("/enroll/{languageName}")
-  public String addLanguage(@PathVariable String languageName, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-    try {
-      Cookie jwtCookie = WebUtils.getCookie(request, "JWT");
-      GetLanguagesResponse response = languageService.addLanguageToUser(languageName, jwtCookie.getValue());
-      model.addAttribute("language", languageName);
-      return "mainForm";  // Redirect to a view page displaying success and language details
-    } catch (DuolingoRuntimeException ex) {
-      redirectAttributes.addFlashAttribute("error", "An error occurred: " + ex.getMessage());
-      return "redirect:/duolingo/language/all";  // Redirect back to the form if there's an exception
+    @GetMapping(path = "/all")
+    public String getLanguages(Model model) throws DuolingoRuntimeException {
+        model.addAttribute("languages", languageService.getLanguages().languages());
+        return "allLanguages";
     }
-  }
 
+    @GetMapping(path = "/enroll/{languageName}")
+    public String enroll(Model model) {
+        return "enroll";
+    }
+
+    @PostMapping("/enroll/{languageName}")
+    public String addLanguage(@PathVariable String languageName, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        try {
+            Cookie jwtCookie = WebUtils.getCookie(request, "JWT");
+            GetLanguagesResponse response = languageService.addLanguageToUser(languageName, jwtCookie.getValue());
+            model.addAttribute("language", languageName);
+            return "mainForm";
+        } catch (DuolingoRuntimeException ex) {
+            redirectAttributes.addFlashAttribute("error", "An error occurred: " + ex.getMessage());
+            return "redirect:/duolingo/language/all";
+        }
+    }
 
 
 }

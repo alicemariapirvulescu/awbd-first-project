@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class LanguageServiceTest {
 
-
   public static final String MOCK_LANGUAGE = "MOCK_LANGUAGE";
   @Mock
   private LanguageRepository languageRepository;
