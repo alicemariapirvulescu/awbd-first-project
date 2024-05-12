@@ -11,17 +11,21 @@
     <h1 th:text="'Results for ' + ${language}">Results Overview</h1>
     <table class="table table-bordered">
         <thead class="thead-dark">
-        <th>
-            <a th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage}, sort='grade', dir=${sort == 'grade' and dir == 'asc' ? 'desc' : 'asc'})}">
-                Grade
-            </a>
-        </th>
-        <th>Language</th>
-        <th>
-            <a th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage}, sort='timestamp', dir=${sort == 'timestamp' and dir == 'asc' ? 'desc' : 'asc'})}">
-                Timestamp
-            </a>
-        </th>
+        <tr>
+            <th>
+                <a th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage}, sort='grade', dir=${sort == 'grade' and dir == 'asc' ? 'desc' : 'asc'})}">
+                    Grade
+                    <span th:if="${sort == 'grade'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+            <th>Language</th>
+            <th>
+                <a th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage}, sort='timestamp', dir=${sort == 'timestamp' and dir == 'asc' ? 'desc' : 'asc'})}">
+                    Timestamp
+                    <span th:if="${sort == 'timestamp'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="result : ${results}">
