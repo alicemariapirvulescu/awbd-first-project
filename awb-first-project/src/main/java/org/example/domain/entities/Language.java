@@ -31,4 +31,9 @@ public class Language {
         this.questions = questions;
         this.lessons = lessons;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

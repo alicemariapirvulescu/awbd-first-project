@@ -4,16 +4,24 @@
     <title>Results Overview</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
+
 <body>
+<header th:replace="navbar :: navbar"></header>
 <div class="container mt-3">
     <h1 th:text="'Results for ' + ${language}">Results Overview</h1>
     <table class="table table-bordered">
         <thead class="thead-dark">
-        <tr>
-            <th>Grade</th>
-            <th>Language</th>
-            <th>Timestamp</th>
-        </tr>
+        <th>
+            <a th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage}, sort='grade', dir=${sort == 'grade' and dir == 'asc' ? 'desc' : 'asc'})}">
+                Grade
+            </a>
+        </th>
+        <th>Language</th>
+        <th>
+            <a th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage}, sort='timestamp', dir=${sort == 'timestamp' and dir == 'asc' ? 'desc' : 'asc'})}">
+                Timestamp
+            </a>
+        </th>
         </thead>
         <tbody>
         <tr th:each="result : ${results}">
@@ -23,6 +31,19 @@
         </tr>
         </tbody>
     </table>
+    <div>
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage - 1}, sort=${sort}, dir=${dir})}" th:unless="${currentPage == 0}">Previous</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${i == currentPage} ? 'active' : ''">
+                <a class="page-link" th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${i}, sort=${sort}, dir=${dir})}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''">
+                <a class="page-link" th:href="@{/duolingo/results/{languageName}(languageName=${language}, page=${currentPage + 1}, sort=${sort}, dir=${dir})}" th:unless="${currentPage + 1 == totalPages}">Next</a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

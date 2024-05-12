@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<header th:replace="navbar :: navbar"></header>
 <div class="container">
     <h1>Answer the Questions Below</h1>
     <form th:action="@{/duolingo/test/answers}" th:object="${resultRequest}" method="post">

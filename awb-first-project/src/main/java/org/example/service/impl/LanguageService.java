@@ -29,7 +29,6 @@ public class LanguageService {
                 .stream()
                 .map(language -> new GetLanguageResponse(language.getName()))
                 .toList();
-        log.debug("The user languages are:  " + userLanguages.toString());
         return new GetLanguagesResponse(userLanguages);
     }
 

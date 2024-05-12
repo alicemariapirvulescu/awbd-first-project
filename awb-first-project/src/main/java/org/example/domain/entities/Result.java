@@ -34,4 +34,13 @@ public class Result {
     }
 
     public Result(){}
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "id=" + id +
+                ", grade=" + grade +
+                ", language=" + language +
+                '}';
+    }
 }

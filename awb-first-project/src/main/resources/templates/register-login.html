@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-top: 50px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to Duolingo</h1>
+<a th:href="@{/duolingo/users/register}" class="btn">Register</a>
+<a th:href="@{/duolingo/users/login}" class="btn">Login</a>
+</body>
+</html>
