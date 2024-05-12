@@ -12,3 +12,5 @@ Users must be able to create a personal account by providing essential details (
 - Tests module Users can take tests to assess their progress in any of the languages they are learning. Each test should comprise five randomly selected questions, covering various aspects of the lessons related to the chosen language. After completing a test, users should be able to submit their answers for evaluation and receive immediate feedback in the form of a grade. Progress Tracking and Performance Analysis
 
 - Results module The application should provide a feature for users to track their learning progress. Users can view a history of the grades they have received on language tests. This tracking should be organized chronologically, allowing users to easily assess their progress over time.
+
+  The application has two profiles: the default one and the test profile with a different database/ profile.
