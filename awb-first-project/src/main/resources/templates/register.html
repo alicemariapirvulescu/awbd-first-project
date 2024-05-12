@@ -2,28 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #5a5a5a;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #5c67f2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4a54e1;
+        }
+        .error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 <body>
-<h2>Register</h2>
-<p>asdfghhjk</p>
-<form th:action="@{/duolingo/users/register}" th:object="${registerDto}" method="POST">
-    <div>
-        <label>Username:</label>
-        <input type="text" th:field="*{username}" />
-        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</span>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" th:field="*{pass}" />
-    </div>
-    <div>
-        <label>Name:</label>
-        <input type="text" th:field="*{name}" />
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
-    </div>
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+<div class="container">
+    <h2>Register</h2>
+    <form th:action="@{/duolingo/users/register}" th:object="${registerDto}" method="POST">
+        <div>
+            <label>Username:</label>
+            <input type="text" th:field="*{username}" />
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error">Username Error</span>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" th:field="*{pass}" />
+        </div>
+        <div>
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">Name Error</span>
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

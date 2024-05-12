@@ -18,6 +18,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 
@@ -53,7 +54,7 @@ public class TestService {
         return new GetQuestionsResponse(mappedQuestions);
     }
 
-    public GetResultResponse saveResultForTest(final PostTestResultRequest request,String jwt)
+    public GetResultResponse saveResultForTest(final PostTestResultRequest request, String jwt)
             throws DuolingoRuntimeException {
 
         val points = request.answers().stream()
@@ -64,7 +65,7 @@ public class TestService {
                 () -> new DuolingoRuntimeException(400, "Language does not exist"));
         val grade = points.stream().mapToDouble(Integer::doubleValue).sum();
 
-    val currentUser = userService.getCurrentUser(jwt);
+        val currentUser = userService.getCurrentUser(jwt);
         val result = Result.builder()
                 .user(currentUser.get())
                 .timestamp(new Date())

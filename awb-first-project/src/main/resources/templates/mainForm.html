@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Enroll</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2 th:text="'You are learning ' + ${language}">Enrolled Language</h2>
+    <div class="mt-4">
+        <!-- Use absolute paths and ensure the context path is correctly prefixed if necessary -->
+        <a role="button" class="btn btn-primary" th:href="@{'/duolingo/test/questions?languageName=' + ${language}}">Take Test</a>
+        <a role="button" class="btn btn-primary" th:href="@{'/duolingo/lesson/' + ${language}}">View Lessons</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,9 +1,25 @@
 package org.example.controller.payload.request;
 
-import jakarta.validation.constraints.Size;
-import lombok.NonNull;
+import lombok.Data;
 
-public record PostAnswerRequest(@NonNull @Size(min = 6, max = 100, message = "Question must be between 6 and 100 characters")
-                                String question, @NonNull String answer) {
+@Data
+public class PostAnswerRequest {
+    private String question;
+    private String answer;
 
+    public String question() {
+        return question;
+    }
+
+    public String answer() {
+        return answer;
+    }
+
+    public PostAnswerRequest(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public PostAnswerRequest() {
+    }
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Results Overview</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-3">
+    <h1 th:text="'Results for ' + ${language}">Results Overview</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Grade</th>
+            <th>Language</th>
+            <th>Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td th:text="${result.grade}">Grade</td>
+            <td th:text="${result.language}">Language</td>
+            <td th:text="${result.timestamp}">Timestamp</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

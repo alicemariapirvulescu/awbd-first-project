@@ -2,23 +2,76 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            padding: 40px;
+            color: #495057;
+        }
+        .login-container {
+            max-width: 360px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875em;
+        }
+    </style>
 </head>
 <body>
-<h2>Login</h2>
-<form th:action="@{/duolingo/users/login}" th:object="${loginDto}" method="post">
-    <div>
-        <label>Username:</label>
-        <input type="text" th:field="*{username}" />
-        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" th:field="*{password}" />
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
-</form>
+<div class="login-container">
+    <h2>Login</h2>
+    <form th:action="@{/duolingo/users/login}" th:object="${loginDto}" method="post">
+        <div>
+            <label>Username:</label>
+            <input type="text" th:field="*{username}" />
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></span>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" th:field="*{password}" />
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

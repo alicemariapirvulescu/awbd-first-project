@@ -15,45 +15,48 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LanguageService {
 
-  private final LanguageRepository languageRepository;
+    private final LanguageRepository languageRepository;
 
-  private final UserService userService;
-  private final UserRepository userRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
 
-  public GetLanguagesResponse getUserLanguages(String jwt) throws DuolingoRuntimeException {
+    public GetLanguagesResponse getUserLanguages(String jwt) throws DuolingoRuntimeException {
 
-    val currentUser = userService.getCurrentUser(jwt)
-        .orElseThrow(() -> new DuolingoRuntimeException(403,"Please login to access this feature"));
-    val userLanguages = currentUser.getLanguages()
-        .stream()
-        .map(language -> new GetLanguageResponse(language.getName()))
-        .toList();
-    return new GetLanguagesResponse(userLanguages);
-  }
+        val currentUser = userService.getCurrentUser(jwt)
+                .orElseThrow(() -> new DuolingoRuntimeException(403, "Please login to access this feature"));
+        val userLanguages = currentUser.getLanguages()
+                .stream()
+                .map(language -> new GetLanguageResponse(language.getName()))
+                .toList();
+        log.debug("The user languages are:  " + userLanguages.toString());
+        return new GetLanguagesResponse(userLanguages);
+    }
 
-  public GetLanguagesResponse getLanguages() {
-    val languages = languageRepository.findAll()
-        .stream()
-        .map(l-> new GetLanguageResponse(l.getName()))
-        .toList();
-    return new GetLanguagesResponse(languages);
-  }
-  public GetLanguagesResponse addLanguageToUser(final String languageName, String jwt) throws DuolingoRuntimeException {
-    val currentUser = userService.getCurrentUser(jwt)
-        .orElseThrow(() -> new DuolingoRuntimeException(403,"Please login to access this api"));
-    val language = languageRepository
-        .findByName(languageName)
-        .orElseThrow(() -> new DuolingoRuntimeException(400, "Language does not exist"));
-    val userLanguages = currentUser.getLanguages();
-    userLanguages.add(language);
-    currentUser.setLanguages(userLanguages);
-    val updatedUser = userRepository.save(currentUser);
-    val updatedUserLanguages = updatedUser.getLanguages()
-        .stream()
-        .map(l-> new GetLanguageResponse(l.getName()))
-        .toList();
-    return new GetLanguagesResponse(updatedUserLanguages);
-  }
+    public GetLanguagesResponse getLanguages() {
+        val languages = languageRepository.findAll()
+                .stream()
+                .map(l -> new GetLanguageResponse(l.getName()))
+                .toList();
+        return new GetLanguagesResponse(languages);
+    }
+
+    public GetLanguagesResponse addLanguageToUser(final String languageName, String jwt) throws DuolingoRuntimeException {
+        val currentUser = userService.getCurrentUser(jwt)
+                .orElseThrow(() -> new DuolingoRuntimeException(403, "Please login to access this api"));
+        val language = languageRepository
+                .findByName(languageName)
+                .orElseThrow(() -> new DuolingoRuntimeException(400, "Language does not exist"));
+        val userLanguages = currentUser.getLanguages();
+        userLanguages.add(language);
+        currentUser.setLanguages(userLanguages);
+        val updatedUser = userRepository.save(currentUser);
+        val updatedUserLanguages = updatedUser.getLanguages()
+                .stream()
+                .map(l -> new GetLanguageResponse(l.getName()))
+                .toList();
+        log.debug("Added language to {} to user " ,languageName);
+        return new GetLanguagesResponse(updatedUserLanguages);
+    }
 
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #f8f9fa; /* A light grey background */
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        }
+        .result-item {
+            font-size: 16px; /* Larger font for better readability */
+            margin-bottom: 5px;
+        }
+        .result-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            margin-top: 20px; /* Space above the button */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Test Result</h1>
+    <div class="result-item">
+        <span class="result-label">Grade:</span>
+        <span th:text="' ' + ${result.grade} + '/5.0'"></span>
+    </div>
+    <div class="result-item">
+        <span class="result-label">Language:</span>
+        <span th:text="' ' + ${result.language}"></span>
+    </div>
+    <div class="result-item">
+        <span class="result-label">Timestamp:</span>
+        <span th:text="' ' + ${result.timestamp}"></span>
+    </div>
+
+    <!-- Button to view the evolution of results -->
+    <div class="text-center">
+        <a th:href="@{/duolingo/results/{languageName}(languageName=${result.language})}" class="btn btn-primary">
+            View Evolution
+        </a>
+    </div>
+</div>
+</body>
+</html>

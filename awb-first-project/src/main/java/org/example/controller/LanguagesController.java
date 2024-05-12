@@ -26,11 +26,6 @@ public class LanguagesController {
 
   private final LanguageService languageService;
 
-//  @GetMapping()
-//  public ResponseEntity<GetLanguagesResponse> getUserLanguages() throws DuolingoRuntimeException {
-//    return ResponseEntity.ok(languageService.getUserLanguages());
-//  }
-
   @GetMapping(path = "/all")
   public String getLanguages(Model model) throws DuolingoRuntimeException {
     model.addAttribute("languages", languageService.getLanguages().languages() );
@@ -47,8 +42,8 @@ public class LanguagesController {
     try {
       Cookie jwtCookie = WebUtils.getCookie(request, "JWT");
       GetLanguagesResponse response = languageService.addLanguageToUser(languageName, jwtCookie.getValue());
-      model.addAttribute("language", response);
-      return "enroll";  // Redirect to a view page displaying success and language details
+      model.addAttribute("language", languageName);
+      return "mainForm";  // Redirect to a view page displaying success and language details
     } catch (DuolingoRuntimeException ex) {
       redirectAttributes.addFlashAttribute("error", "An error occurred: " + ex.getMessage());
       return "redirect:/duolingo/language/all";  // Redirect back to the form if there's an exception

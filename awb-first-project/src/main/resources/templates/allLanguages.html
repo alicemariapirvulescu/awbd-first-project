@@ -1,12 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Languages Options</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            padding-top: 20px;
+        }
+        .language-btn {
+            width: 100%;
+            text-align: left;
+            color: #495057;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+        }
+        .language-btn:hover {
+            color: #0056b3;
+            background-color: #e2e6ea;
+            text-decoration: none;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h2>Languages Options</h2>
     <table class="table table-bordered">
-        <thead>
+        <thead class="thead-light">
         <tr>
             <th>Languages</th>
         </tr>
@@ -14,10 +39,8 @@
         <tbody>
         <tr th:each="str : ${languages}">
             <td>
-                <!-- Form to submit a POST request to enroll in a selected language -->
                 <form th:action="@{'/duolingo/language/enroll/' + ${str.name}}" method="post">
-                    <!-- Display the language name inside a button which submits the form -->
-                    <button type="submit" class="btn btn-link" th:text="${str.name}"></button>
+                    <button type="submit" class="btn language-btn" th:text="${str.name}"></button>
                 </form>
             </td>
         </tr>

@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.controller.payload.request.SaveResultRequest;
 import org.example.controller.payload.response.GetResultResponse;
 import org.example.controller.payload.response.GetResultsResponse;
@@ -15,9 +17,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.WebUtils;
 
-@RestController
+@Controller
 @RequestMapping("/duolingo/results")
 @RequiredArgsConstructor
 @Slf4j
@@ -25,18 +29,12 @@ public class ResultController {
 
   private final ResultService resultService;
 
-//  @GetMapping(path = "/{languageName}")
-//  public ResponseEntity<GetResultsResponse> getResults(
-//      @PathVariable final String languageName) throws DuolingoRuntimeException {
-//
-//    return ResponseEntity.ok(resultService.findResultsForLanguage(languageName));
-//  }
-  @GetMapping(path = "/get-result-details/{resultId}")
-  public ResponseEntity<GetResultResponse> getResultDetails(
-      @PathVariable final Long resultId) throws DuolingoRuntimeException {
-
-    return ResponseEntity.ok(resultService.getResultDetails(resultId));
+  @GetMapping("/{languageName}")
+  public String getResults(@PathVariable String languageName, HttpServletRequest request, Model model) throws DuolingoRuntimeException {
+    Cookie jwtCookie = WebUtils.getCookie(request, "JWT");
+    GetResultsResponse results = resultService.findResultsForLanguage(languageName, jwtCookie.getValue());
+    model.addAttribute("results", results.getResults());
+    model.addAttribute("language", languageName);
+    return "resultsView"; // Name of the Thymeleaf template
   }
-
-
 }

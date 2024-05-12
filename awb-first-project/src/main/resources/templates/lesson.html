@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Language Lessons</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Corrected to use the language attribute correctly as it's a string -->
+    <h1 th:text="'Lessons for ' + ${language}">Lessons for Language</h1>
+
+    <!-- Changed to check if the list of lessons is empty using the correct model attribute -->
+    <div th:if="${lesson.lessons.empty}">
+        <p>No lessons available at the moment.</p>
+    </div>
+
+    <!-- Also corrected to use the right attribute -->
+    <div th:unless="${lesson.lessons.empty}">
+        <div class="list-group">
+            <!-- Iterate over the lessons from the lesson attribute -->
+            <div th:each="lesson : ${lesson.lessons}" class="list-group-item">
+                <h4 th:text="${lesson.title}">Lesson Title</h4>
+                <p th:text="${lesson.text}">Lesson description here...</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

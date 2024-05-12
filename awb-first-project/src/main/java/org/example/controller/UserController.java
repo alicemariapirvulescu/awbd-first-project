@@ -34,7 +34,7 @@ public class UserController {
 
         userService.register(registerDto);
         model.addAttribute("message", "User registered successfully");
-        return "redirect:/duolingo/user/login";
+        return "redirect:/duolingo/users/login";
     }
 
 
