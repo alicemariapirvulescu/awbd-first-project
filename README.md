@@ -3,7 +3,6 @@
 Business requirements for Duolingo Application:
 
 - Account Creation and Authentication System
-
 Users must be able to create a personal account by providing essential details (such as email, username, and password). The system should implement basic authentication protocols to ensure secure login processes. After account creation, users should be able to log in to access the application's features. Language Selection and Customization
 
 - Choosing the preferred languages Upon logging in, users have the option to select one or more languages they wish to learn or practice. The application should offer a diverse range of languages from which users can choose. Users should have the flexibility to modify their selection of languages at any time, allowing them to add new languages or remove previously selected ones from their learning list. Access to Language Lessons
